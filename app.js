@@ -12,10 +12,6 @@ var AutoRoutes = require("q-auto-routes");
 global.db = mongoose.connect("mongodb://localhost:27017/gtq");
 global.dbHandel = require('./model/dbHandel');
 
-var hbs = require('hbs');
-var layouts = require('handlebars-layouts');
-hbs.registerHelper(layouts(hbs));
-
 var app = express();
 
 //session设置

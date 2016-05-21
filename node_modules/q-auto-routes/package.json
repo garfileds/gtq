@@ -1,0 +1,11 @@
+{
+    "name": "q-auto-routes",
+    "version": "0.0.1",
+    "description": "qunar multi_worker",
+    "keywords": [],
+    "author": {
+        "name": "dimu.feng",
+        "email": "dimu.feng@qunar.com"
+    },
+    "dependencies": {}
+}

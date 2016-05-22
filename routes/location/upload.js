@@ -35,6 +35,8 @@ router.post('/', cpUpload, function(req, res) {
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var data = JSON.parse(body);
+            console.log('response: ' + data);
+            console.log('x: ' + x);
 
             Location.create({
                 x: x,

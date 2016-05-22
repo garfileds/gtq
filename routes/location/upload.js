@@ -7,7 +7,7 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, '/freetime/gtq/public/upload');
+        cb(null, '~/gtq/public/upload');
     },
     filename: function(req, file, cb) {
         cb(null, '/upload/' + file.originalname);
@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage
 });
-var cpUpload = upload.single('goodImg');
+var cpUpload = upload.any();
 
 router.post('/', cpUpload, function(req, res) {
     if (!req.session.user) {

@@ -44,7 +44,7 @@
 
                     for (i = 0; i < data.points.length; i++) {
                         (function() {
-                            var imgId = locations[i].time.getTime();
+                            var imgId = new Date(locations[i].time).getTime();
                             var infoWindow = '<img src="' + locations[i].img + ' style="width: 150px;height: 150px">';
                             function showImg() {
 

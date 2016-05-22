@@ -1,0 +1,37 @@
+ul {
+	list-style: none;
+	margin-left: -40px;  /*chrome下的reset*/
+}
+
+.logo {
+	border-bottom: solid 2px #dedede;
+	margin-bottom: 20px;
+}
+
+.leftBox {
+    width: 15%;
+    margin-right: 5%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+.leftBox .title {
+	border-bottom: solid 2px;
+	padding: 1rem 0;
+}
+.leftBox ul.content li {
+	padding: 1rem 0;
+	border-bottom: solid 1px #dedede;
+	cursor: pointer;
+}
+.leftBox ul.content li.active {
+	background-color: #31b0d5;
+	color: #ffffff;
+}
+
+.rightBox {
+    width: 75%;
+    display: inline-block;
+    height: 500px;
+}
+

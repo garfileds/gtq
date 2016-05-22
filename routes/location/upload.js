@@ -18,7 +18,7 @@ var upload = multer({
 });
 var cpUpload = upload.any();
 
-router.post('/', cpUpload, function(req, res) {
+router.post('/', function(req, res) {
     console.log('start!');
     if (!req.session.user) {
         res.json({code: 1, desc: '用户未登录'});

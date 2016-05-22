@@ -16,9 +16,9 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage
 });
-var cpUpload = upload.any();
+var cpUpload = upload.single('Filedata');
 
-router.post('/', function(req, res) {
+router.post('/', cpUpload, function(req, res) {
     console.log('start!');
     if (!req.session.user) {
         res.json({code: 1, desc: '用户未登录'});

@@ -39,6 +39,7 @@ var cpUpload = upload.single('Filedata');
 router.post('/', cpUpload, function(req, res) {
     console.log('start!');
     console.log('Content-Type: ' + req.get('Content-Type'));
+    console.log('fileName: ' + req.file.filename);
     /*if (!req.session.user) {
         res.json({code: 1, desc: '用户未登录'});
     }*/

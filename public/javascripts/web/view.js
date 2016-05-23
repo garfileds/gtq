@@ -42,18 +42,12 @@
                 if (data.status === 0) {
                     var i, maker;
 
+                    var timeFormate = function(date) {
+                        var result = [];
+                        result.push(date.getFullYear(), '年', date.getMonth() + 1, '月', date.getDate(), '日', date.getHours() + 1, '时', date.getMinute(), '分');
+                    };
+
                     for (i = 0; i < data.points.length; i++) {
-                        (function() {
-                            var time = new Date(locations[i].time);
-                                imgId = time.getTime();
-                            var infoWindow = [];
-                            infoWindow.push('<img src="', locations[i].img, ' style="width: 150px;height: 150px">',
-                                '<p>', ,'</p>')
-                            function showImg() {
-
-                            }
-                        })();
-
                         maker = new BMap.Marker(data.points[i]);
                         maker.addEventListener('click', showImgGeneration());
                         bm.addOverlay(maker);
@@ -61,6 +55,30 @@
                     }
                     bm.enableScrollWheelZoom(true);
                 }
+
+                //利用闭包生成坐标点击事件的处理程序: 保存i的信息
+                function showImgGeneration() {
+                    var index = i;
+                    var time = new Date(locations[index].time);
+                        imgId = time.getTime();
+
+                    var infoWindow = [];
+
+                    infoWindow.push('<img id="', imgId, '"src="', locations[index].img, ' style="width: 150px;height: 150px">',
+                                    '<p>拍摄时间：', timeFormate(time), '</p>');
+
+                    var showImg = function() {
+                        this.openInfoWindow(infoWindow.join(''));
+
+                        //图片加载完毕重绘infowindow
+                        document.getElementById(imgId).onload = function() {
+                            //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+                            infoWindow.redraw();
+                        };
+                    };
+
+                    return showImg;
+                };
             };
 
             setTimeout(function() {

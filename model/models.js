@@ -11,5 +11,9 @@ module.exports = {
 		time: {type: Date, default: Date.now, required: true},
 		img: {type: String, required: true},
 		label: {type: String, required: true}
+	},
+	lastModified: {
+		location: {type: Date, default: Date.now, required: true}
 	}
+
 };

@@ -44,9 +44,9 @@ router.post('/', cpUpload, function(req, res) {
     console.log('start!');
     console.log('Content-Type: ' + req.get('Content-Type'));
     console.log('fileName: ' + req.file.filename);
-    /*if (!req.session.user) {
+    if (!req.session.user) {
         res.json({code: 1, desc: '用户未登录'});
-    }*/
+    }
     
     var Location = global.dbHandel.getModel('location');
 
@@ -66,8 +66,8 @@ router.post('/', cpUpload, function(req, res) {
                     y: y,
                     img: imgUrl,
                     label: data.result.formatted_address,
-                    // userId: req.session.user._id
-                    userId: '573fd5db00adc2f02f15701d'
+                    userId: req.session.user._id
+                    // userId: '573fd5db00adc2f02f15701d' //test code
                 }, function(err, doc) {
                     if (err) {
                         res.json({code: 1, desc: '网络异常'});

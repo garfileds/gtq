@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/icon.min.css">
+    <link rel="stylesheet" href="/stylesheets/form.min.css">
+    <style type="text/css">
+    .title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .login-btn {
+        width: 150px;
+        height: 30px;
+        background-color: #31b0d5;
+        color: #ffffff;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="width: 60%; margin: 0 auto">
+        {{message}}
+        <div class="title">
+            <h3>GTQ型单兵巡护通讯系统-管理员登录</h3>
+        </div>
+        <form class="ui form" action="/user/login" method="POST">
+            <div class="field">
+                <label>用户名：</label>
+                <input type="text" name="username" placeholder="用户名">
+            </div>
+            <div class="field">
+                <label>密码：</label>
+                <input type="password" name="password" placeholder="密码">
+            </div>
+            <button class="login-btn" type="submit">登录</button>
+        </form>
+    </div>
+</body>
+
+</html>

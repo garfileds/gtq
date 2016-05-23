@@ -1,14 +1,55 @@
 (function() {
-    var url = '/location/get/user1';
     var request = new XMLHttpRequest();
-    request.open('GET', url);
-    request.setRequestHeader('Accept', 'application/json');
-    request.onreadystatechange = function() {
-        if (request.readyState === 4 && request.status === 200) {
-            renderBMap(JSON.parse(request.response));
+    var rootDevice = document.getElementById('js-content'),
+        loading = document.getElementById('loading');
+
+    rootDevice.addEventListener('click', function(e) {
+        var target = e.target;
+
+        if (target.tagName.toLowerCase() === 'span') {
+            var ancestorLi = target.parentNode,
+                userCode = target.dataset.usercode,
+                url = '/location/get/' + userCode;
+
+            var liSiblings;
+
+            //改变选中的li的样式
+            liSiblings = ancestorLi.parentNode.querySelectorAll('li');
+            Array.prototype.forEach.call(liSiblings, function(el) {
+                el.className = '';
+            });
+
+            ancestorLi.className = 'active';
+
+            //取消正在发送的xhr
+            if (request.readyState < 4) {
+                request.abort();
+            }
+
+            request.open('GET', url);
+            request.setRequestHeader('Accept', 'application/json');
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    loading.style.display = 'none';
+                    renderBMap(JSON.parse(request.response));
+                } else if (request.readyState < 4) {
+                    loading.style.display = 'block';
+                }
+            };
+            request.send(null);
         }
-    };
-    request.send(null);
+    });
+
+    //页面加载完成默认触发一号设备点击事件
+    var clickEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+
+    var deviceOneSpan = rootDevice.firstElementChild.querySelector('span');
+
+    deviceOneSpan.dispatchEvent(clickEvent);
 
     /*
      * @fn 处理location数据，调用百度地图显示location
@@ -47,7 +88,7 @@
 
                     var timeFormate = function(date) {
                         var result = [];
-                        result.push(date.getFullYear(), '年', date.getMonth() + 1, '月', date.getDate(), '日', date.getHours() + 1, '时', date.getMinutes(), '分');
+                        result.push(date.getFullYear(), '年', date.getMonth() + 1, '月', date.getDate(), '日', date.getHours(), '时', date.getMinutes(), '分');
                         return result.join('');
                     };
 

@@ -12,16 +12,25 @@
     <div class="logo">
 		<h1>GTQ型单兵巡护通讯系统</h1>
 	</div>
-	<div class="leftBox">
-		<p class="title">设备列表</p>
-		<ul class="content">
-			<li class="active"><i class="mobile big icon"></i>一号</li>
-			<li><i class="mobile big icon"></i>二号</li>
-			<li><i class="mobile big icon"></i>三号</li>
-			<li><i class="mobile big icon"></i>四号</li>
-		</ul>
+	<div class="main">
+		<div class="leftBox">
+			<p class="title">设备列表</p>
+			<ul class="content" id="js-content">
+				<li class="active"><i class="mobile big icon"></i><span data-usercode="user1">一号</span></li>
+				<li><i class="mobile big icon"></i><span data-usercode="user2">二号</span></li>
+				<li><i class="mobile big icon"></i><span data-usercode="user3">三号</span></li>
+				<li><i class="mobile big icon"></i><span data-usercode="user4">四号</span></li>
+			</ul>
+		</div>
+		<div class="rightBox" id="allmap"></div>
+		<div class="spinner" id="loading">
+		    <div class="rect1"></div>
+		    <div class="rect2"></div>
+		    <div class="rect3"></div>
+		    <div class="rect4"></div>
+		    <div class="rect5"></div>
+		</div>
 	</div>
-	<div class="rightBox" id="allmap"></div>
 
 	<script src="/javascripts/web/view.js"></script>
   </body>

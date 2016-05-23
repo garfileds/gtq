@@ -18,7 +18,7 @@ var upload = multer({
 });
 var cpUpload = upload.single('Filedata');
 
-router.post('/', function(req, res) {
+router.post('/', cpUpload, function(req, res) {
     console.log('start!');
     console.log('Content-Type: ' + req.get('Content-Type'));
     /*if (!req.session.user) {

@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage
 });
-var cpUpload = upload.single('Filedata');
+var cpUpload = upload.any();
 
 router.post('/', cpUpload, function(req, res) {
     console.log('start!');
@@ -29,7 +29,7 @@ router.post('/', cpUpload, function(req, res) {
 
     var x = new Number(req.body.x).valueOf(),
         y = new Number(req.body.y).valueOf(),
-        imgUrl = '/upload/' + req.file.filename;
+        imgUrl = '/upload/' + req.file[0].filename;
 
     //请求百度地图API
     var url = 'http://api.map.baidu.com/geocoder/v2/?ak=yrVn3NWk7BbtTNd5ONgPaF81gEE1cqXS&callback=renderLocation&location=' + y + ',' + x + '&output=json&pois=1';

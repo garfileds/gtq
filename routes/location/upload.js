@@ -21,6 +21,7 @@ var cpUpload = upload.any();
 router.post('/', cpUpload, function(req, res) {
     console.log('start!');
     console.log('Content-Type: ' + req.get('Content-Type'));
+    console.log(req.body);
     /*if (!req.session.user) {
         res.json({code: 1, desc: '用户未登录'});
     }*/

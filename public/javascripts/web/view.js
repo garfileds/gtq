@@ -21,7 +21,7 @@
                 locations = data.result,
                 len = locations.length;
 
-            locations.map(function(el) {
+            locations.forEach(function(el) {
                 points.push(new BMap.Point(el.x, el.y));
                 sumX += el.x;
                 sumY += el.y;

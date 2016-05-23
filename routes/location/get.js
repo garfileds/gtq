@@ -8,12 +8,12 @@ router.get('/:id', function(req, res) {
     
     var Location = global.dbHandel.getModel('location');
 
-    /*test*/
+    /*test code*/
     req.session.user = {
         _id: '573fd5db00adc2f02f15701d',
         code: 'user1'
     };
-    /*test end*/
+    /*test code end*/
     
     if (req.session.user.code === 'admin' || req.session.user.code === req.params.id) {
         Location.find({

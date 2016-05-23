@@ -2,12 +2,29 @@ var express = require('express');
 var router = express.Router();
 
 var request = require('request');
+var fs = require('path');
 
 var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, '~/gtq/public/upload');
+        // 生成目标文件夹
+        var destDir = '~/gtq/uploads/';
+        // 判断文件夹是否存在
+        fs.stat(destDir, (err) => {
+            if (err) {
+                // 创建文件夹
+                mkdirp(destDir, (err) => {
+                    if (err) {
+                        cb(err);
+                    } else {
+                        cb(null, destDir);
+                    }
+                });
+            } else {
+                cb(null, destDir);
+            }
+        });
     },
     filename: function(req, file, cb) {
         cb(null, new Date().getTime() + file.originalname);

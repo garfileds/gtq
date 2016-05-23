@@ -44,7 +44,7 @@ router.post('/', function(req, res) {
                     img: imgUrl,
                     label: data.result.formatted_address,
                     // userId: req.session.user._id
-                    userId: 'test'
+                    userId: '573fd5db00adc2f02f15701d'
                 }, function(err, doc) {
                     if (err) {
                         res.json({code: 1, desc: '网络异常'});

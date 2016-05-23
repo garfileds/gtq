@@ -1,37 +1,40 @@
 (function() {
-    var url = '/location/get/user1'
+    var url = '/location/get/user1';
     var request = new XMLHttpRequest();
     request.open('GET', url);
+    request.setRequestHeader('Accept', 'application/json');
     request.onreadystatechange = function() {
-        if (request.readystate === 4 && request.status === 200) {
-            renderBMap(request.response);
+        if (request.readyState === 4 && request.status === 200) {
+            renderBMap(JSON.parse(request.response));
         }
     };
+    request.send(null);
 
     /*
      * @fn 处理location数据，调用百度地图显示location
      */
-    function renderBMap(locations) {
-        if (locations.code === 0) {
-            var len = locations.length,
-                sumX = 0,
+    function renderBMap(data) {
+        if (data.code === 0) {
+            var sumX = 0,
                 sumY = 0,
-                points = [];
+                points = [],
+                locations = data.result,
+                len = locations.length;
 
-            sum.map(function(el) {
+            locations.map(function(el) {
                 points.push(new BMap.Point(el.x, el.y));
                 sumX += el.x;
                 sumY += el.y;
             });
 
-            if (points.length === 0) {
+            /*if (points.length === 0) {
                 points = [new BMap.Point(116.41413701159672, 39.90795884517671),
                     new BMap.Point(116.3786889372559, 39.90762965106183),
                     new BMap.Point(116.38632786853032, 39.90795884517671),
                     new BMap.Point(116.39534009082035, 39.907432133833574),
                     new BMap.Point(116.40624058825688, 39.90789300648029)
                 ];
-            }
+            }*/
 
             //地图初始化
             var bm = new BMap.Map("allmap");
@@ -44,7 +47,8 @@
 
                     var timeFormate = function(date) {
                         var result = [];
-                        result.push(date.getFullYear(), '年', date.getMonth() + 1, '月', date.getDate(), '日', date.getHours() + 1, '时', date.getMinute(), '分');
+                        result.push(date.getFullYear(), '年', date.getMonth() + 1, '月', date.getDate(), '日', date.getHours() + 1, '时', date.getMinutes(), '分');
+                        return result.join('');
                     };
 
                     for (i = 0; i < data.points.length; i++) {
@@ -62,13 +66,14 @@
                     var time = new Date(locations[index].time);
                         imgId = time.getTime();
 
-                    var infoWindow = [];
+                    var sContent = [], infoWindow;
 
-                    infoWindow.push('<img id="', imgId, '"src="', locations[index].img, ' style="width: 150px;height: 150px">',
+                    sContent.push('<img id=', imgId, ' src=', locations[index].img, ' style="width: 150px;height: 150px">',
                                     '<p>拍摄时间：', timeFormate(time), '</p>');
 
                     var showImg = function() {
-                        this.openInfoWindow(infoWindow.join(''));
+                        var infoWindow = new BMap.InfoWindow(sContent.join(''));
+                        this.openInfoWindow(infoWindow);
 
                         //图片加载完毕重绘infowindow
                         document.getElementById(imgId).onload = function() {
@@ -78,7 +83,7 @@
                     };
 
                     return showImg;
-                };
+                }
             };
 
             setTimeout(function() {

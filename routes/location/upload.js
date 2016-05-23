@@ -10,7 +10,7 @@ var multer = require('multer');
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
         // 生成目标文件夹
-        var destDir = '/~/gtq/uploads/';
+        var destDir = 'myUploads/';
         // 判断文件夹是否存在
         fs.stat(destDir, (err) => {
             if (err) {
@@ -18,11 +18,15 @@ var storage = multer.diskStorage({
                 mkdirp(destDir, (err) => {
                     if (err) {
                         cb(err);
+                        console.log('创建文件夹失败');
                     } else {
+                        console.log('创建文件夹成功');
                         cb(null, destDir);
+                        console.log('写了文件2');
                     }
                 });
             } else {
+                console.log('写了文件');
                 cb(null, destDir);
             }
         });

@@ -26,4 +26,10 @@ router.post('/', function(req, res) {
     });
 });
 
+router.get('/', function(req, res) {
+    res.render('web/login', {
+        title: 'GTQ-登录'
+    });
+});
+
 module.exports = router;

@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var request = require('request');
-var fs = require('path');
+var mkdirp = require('mkdirp');
+var fs = require('fs');
 
 var multer = require('multer');
 

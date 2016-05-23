@@ -7,7 +7,7 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, '~/gtq/public/upload');
+        cb(null, '/freetime/gtq/public/upload');
     },
     filename: function(req, file, cb) {
         cb(null, file.originalname);
@@ -16,12 +16,11 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage
 });
-var cpUpload = upload.any();
+var cpUpload = upload.single('Filedata');
 
 router.post('/', cpUpload, function(req, res) {
     console.log('start!');
     console.log('Content-Type: ' + req.get('Content-Type'));
-    console.log(req.body);
     /*if (!req.session.user) {
         res.json({code: 1, desc: '用户未登录'});
     }*/
@@ -30,7 +29,7 @@ router.post('/', cpUpload, function(req, res) {
 
     var x = new Number(req.body.x).valueOf(),
         y = new Number(req.body.y).valueOf(),
-        imgUrl = '/upload/' + req.file[0].filename;
+        imgUrl = '/upload/' + req.file.filename;
 
     //请求百度地图API
     var url = 'http://api.map.baidu.com/geocoder/v2/?ak=yrVn3NWk7BbtTNd5ONgPaF81gEE1cqXS&callback=renderLocation&location=' + y + ',' + x + '&output=json&pois=1';

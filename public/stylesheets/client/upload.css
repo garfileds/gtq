@@ -1,0 +1,26 @@
+ul {
+	list-style: none;
+}
+
+.upload {
+	text-align: center;
+    padding: 1rem;
+    border: solid 1px;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.history {
+	text-align: center;
+}
+.history p.title {
+	color: red;
+}
+.history ul.content > li > img {
+	width: 150px;
+	vertical-align: middle;
+}
+.history ul.content > li > span {
+	display: inline-block;
+	vertical-align: middle;
+}

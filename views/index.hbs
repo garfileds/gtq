@@ -7,11 +7,15 @@
   <body>
     <h1>{{title}}</h1>
 	<p>Welcome to {{title}}</p>
-	<form action="/users/register" method="POST">
-		<label for="">name</label>
-		<input type="text" name="username">
-		<label for="">password</label>
-		<input type="text" name="password">
+	<form action="/location/upload" method="POST" enctype="multipart/form-data">
+		<label for="">x:</label>
+		<input type="text" name="x">
+		<br/>
+		<label for="">y:</label>
+		<input type="text" name="y">
+		<br/>
+		<label for="">file:</label>
+		<input type="file" name="Filedata">
 		<input type="submit" value="submit">
 	</form>
   </body>

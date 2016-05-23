@@ -7,10 +7,10 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, '~/gtq/public/upload');
+        cb(null, '/freetime/gtq/public/upload');
     },
     filename: function(req, file, cb) {
-        cb(null, '/upload/' + file.originalname);
+        cb(null, file.originalname);
     }
 });
 var upload = multer({
@@ -20,39 +20,44 @@ var cpUpload = upload.single('Filedata');
 
 router.post('/', cpUpload, function(req, res) {
     console.log('start!');
-    if (!req.session.user) {
+    /*if (!req.session.user) {
         res.json({code: 1, desc: '用户未登录'});
-    }
+    }*/
     
     var Location = global.dbHandel.getModel('location');
 
     var x = new Number(req.body.x).valueOf(),
         y = new Number(req.body.y).valueOf(),
-        imgUrl = req.file.filename;
+        imgUrl = '/upload/' + req.file.filename;
 
     //请求百度地图API
-    var url = 'http://api.map.baidu.com/geocoder/v2/?ak=yrVn3NWk7BbtTNd5ONgPaF81gEE1cqXS&callback=renderLocation&location=' + x + ',' + y + '&output=json&pois=1';
+    var url = 'http://api.map.baidu.com/geocoder/v2/?ak=yrVn3NWk7BbtTNd5ONgPaF81gEE1cqXS&callback=renderLocation&location=' + y + ',' + x + '&output=json&pois=1';
 
     request(url, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var data = JSON.parse(body);
-            console.log('response: ' + data);
-            console.log('x: ' + x);
+        //请求BMap url的回调函数
+        var renderLocation = function(data) {
+            if (data.status === 0) {
+                Location.create({
+                    x: x,
+                    y: y,
+                    img: imgUrl,
+                    label: data.result.formatted_address,
+                    // userId: req.session.user._id
+                    userId: 'test'
+                }, function(err, doc) {
+                    if (err) {
+                        res.json({code: 1, desc: '网络异常'});
+                        console.log(err);
+                    } else {
+                        res.json({code: 0, desc: '信息上传成功'});
+                    }
+                });
+            }
+        };
 
-            Location.create({
-                x: x,
-                y: y,
-                img: imgUrl,
-                label: data.formatted_address,
-                userId: req.session.user._id
-            }, function(err, doc) {
-                if (err) {
-                    res.json({code: 1, desc: '网络异常'});
-                    console.log(err);
-                } else {
-                    res.json({code: 0, desc: '信息上传成功'});
-                }
-            });
+        if (!error && response.statusCode == 200) {
+            eval(response.body);
+            console.log('调用BMap API完成');
         }
     });
 });

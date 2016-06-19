@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
  //    } else {
     	res.render('client/upload', {
 	        title: 'GTQ系统-图片上传',
-	        userCode: user.code
-	        // userCode: 'user1' //test code
+	        // userCode: user.code
+	        userCode: 'user1' //test code
 	    });
     // }
 });

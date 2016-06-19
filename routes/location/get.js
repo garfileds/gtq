@@ -14,7 +14,7 @@ router.get('/:id', function(req, res) {
         code: 'user1'
     };*/
     /*test code end*/
-    if (req.session.user.code === req.params.id) {
+    if (req.session.user.code === 'admin' || req.session.user.code === req.params.id) {
         Location.find({
             userCode: req.params.id
         }, function(err, doc) {

@@ -67,7 +67,8 @@ router.post('/', cpUpload, function(req, res) {
                     y: y,
                     img: imgUrl,
                     label: data.result.formatted_address,
-                    userId: global.user._id
+                    userId: global.user._id,
+                    userCode: global.user.userCode
                     // userId: '573fd5db00adc2f02f15701d' //test code
                 }, function(err, doc) {
                     if (err) {

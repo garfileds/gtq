@@ -4,7 +4,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	if (!req.session.user) {
         req.session.err = '用户未登录';
-        res.sendstatus(500);
+        res.sendStatus(500);
     } else {
     	res.render('client/upload', {
 	        title: 'GTQ系统-图片上传',

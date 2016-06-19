@@ -23,7 +23,7 @@ router.route('/').get(function(req, res) {
             if (password != doc.password) {
                 res.sendStatus(500);
             } else {
-                global user = doc;
+                // global user = doc;
                 req.session.user = doc;
 
                 if (doc.code === 'admin') {

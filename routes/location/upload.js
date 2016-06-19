@@ -44,7 +44,7 @@ router.post('/', cpUpload, function(req, res) {
     console.log('start!');
     console.log('Content-Type: ' + req.get('Content-Type'));
     console.log('fileName: ' + req.file.filename);
-    if (!req.session.user) {
+    if (!global.user) {
         res.json({code: 1, desc: '用户未登录'});
     }
     
@@ -66,7 +66,7 @@ router.post('/', cpUpload, function(req, res) {
                     y: y,
                     img: imgUrl,
                     label: data.result.formatted_address,
-                    userId: req.session.user._id
+                    userId: global.user._id
                     // userId: '573fd5db00adc2f02f15701d' //test code
                 }, function(err, doc) {
                     if (err) {

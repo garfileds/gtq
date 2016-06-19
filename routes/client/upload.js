@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
+	console.log('req.session.user: ' + req.session.user.code);
 	if (!req.session.user) {
         req.session.err = '用户未登录';
         res.sendStatus(500);

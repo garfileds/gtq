@@ -30,3 +30,5 @@ router.get('/', function(req, res, next) {
 	var echostr = req.query.echostr;
 	res.status(200).send(echostr);
 });
+
+module.exports = router;
